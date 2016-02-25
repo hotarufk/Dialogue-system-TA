@@ -151,8 +151,8 @@ public class stemmer implements Stemmer {
 		 //System.out.println("test 4");
 		/* 4. Buang Derivation prefix */
 		 word = Del_Derivation_Prefix( word);
-
-		return word;
+		 
+		return word.replace(" ", "");
 
 		}
 	
@@ -161,7 +161,7 @@ public class stemmer implements Stemmer {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		stemmer s = new stemmer();
-		System.out.println(s.stem("kejuaraan"));
+		System.out.println(s.stem(" "));
 
 	}
 

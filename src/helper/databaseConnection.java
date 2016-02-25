@@ -747,11 +747,11 @@ public class databaseConnection {
 		      stmt = conn.createStatement();
 		      //String cleankeyword = stem.stem(keyword);
 		      //String cleankeyword = keyword;
-		      String statement = "SELECT `id` FROM  `items` WHERE  `name` LIKE '%"+cleankeyword+"%'LIMIT 5";
+		      String statement = "SELECT `id` FROM  `items` WHERE  `name` LIKE '"+cleankeyword+"%'LIMIT 5";
 		      if(type == 0){
-		    	  statement = "SELECT `id` FROM  `items` WHERE  `name` LIKE '%"+cleankeyword+"%'LIMIT 5";		    	  
+		    	  statement = "SELECT `id` FROM  `items` WHERE  `name` LIKE '"+cleankeyword+" %' OR `name` LIKE '% "+cleankeyword+"'LIMIT 5";		    	  
 		      }else if(type==1){
-		    	  statement = "SELECT `id` FROM  `items` WHERE  `description` LIKE '%"+cleankeyword+"%'LIMIT 5"; 
+		    	  statement = "SELECT `id` FROM  `items` WHERE  `description` LIKE '"+cleankeyword+" %' OR `description` LIKE '% "+cleankeyword+"' LIMIT 5"; 
 		      }
 		     
 		     ////System.out.println(statement);

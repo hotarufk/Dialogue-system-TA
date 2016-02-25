@@ -208,13 +208,12 @@ public class LearnerAndClassifier {
 		 // meta-classifier
 		// fc = new FilteredClassifier();
 		// fc.setFilter(rm);
-		 //tree = new J48();
-		 NaiveBayes nb = new NaiveBayes();
+		 J48 cs = new J48(); //tree
+		 //NaiveBayes cs = new NaiveBayes();
 		 //fc.setClassifier(nb);
 		 // train and make predictions
 		 try {
-			nb.buildClassifier(train);
-			 //fc.buildClassifier(train);
+			cs.buildClassifier(train);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -222,7 +221,7 @@ public class LearnerAndClassifier {
 		 for (int i = 0; i < test.numInstances(); i++) {
 		   double pred = 0;
 		try {
-			pred = nb.classifyInstance(test.instance(i));
+			pred = cs.classifyInstance(test.instance(i));
 			//test.instance(i).setClassValue(pred);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -336,11 +335,12 @@ public class LearnerAndClassifier {
 		Random rand = new Random(seed);
 		Instances data =test.stringToWord(test.train); 
 		data.randomize(rand);
-		data.stratify(10);
+		int kmean = 10;
+		data.stratify(kmean);
 		//data.setClassIndex(data.numAttributes() - 1);
  
 		// Do 10-split cross validation
-		Instances[][] split = crossValidationSplit(data, 10);
+		Instances[][] split = crossValidationSplit(data, kmean);
  
 		// Separate split into training and testing arrays
 		Instances[] trainingSplits = split[0];
@@ -378,7 +378,7 @@ public class LearnerAndClassifier {
 					
 	
 				// Uncomment to see the summary for each training-testing pair.
-				System.out.println(models[j].toString());
+				//System.out.println(models[j].toString());
 			}
  
 			// Calculate overall accuracy of current classifier on all splits
@@ -448,17 +448,23 @@ public class LearnerAndClassifier {
 		evaluation.evaluateModel(model, testingSet);
 		
 		//evaluation.toSummaryString()
-	/*	System.out.println("Confusion Matrix :");
+		System.out.println("Confusion Matrix :");
 		double[][] asw=evaluation.confusionMatrix();
+		int i=64;
+		for(int j=65;j<73;j++)
+			System.out.print((char)j+" ");
+		System.out.println();
 		for(double[]aa :asw){
+			i++;
 			for(double a :aa){
-				System.out.print(a+ " ");
+				System.out.print((int)a+ " ");
 			}
+			System.out.print((char)i+" <=");
 			System.out.println();
 			
 		}
 		System.out.println();
-	*/
+	
 		//System.out.println("test 3 "+evaluation.predictions().firstElement().toString());
 		
 		
